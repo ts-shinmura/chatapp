@@ -53,4 +53,4 @@ production:
   host: db01.acc.respect.work
   database: ai_chat
   username: ai_chat
-  password: <%= ENV["GPTFRONT_DATABASE_PASSWORD"] %>
+  password: <%= Rails.application.credentials.dig(Rails.env.to_sym, :database_password) %>
