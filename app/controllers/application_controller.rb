@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token, only: %i[consume]
+
   def consume
     @response = OneLogin::RubySaml::Response.new params['SAMLResponse'],
                                                  settings: Rails.application.config.saml,
