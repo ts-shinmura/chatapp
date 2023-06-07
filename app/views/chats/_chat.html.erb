@@ -1,0 +1,18 @@
+<div class="d-flex flex-row flex-grow-1 flex-shrink-1 my-3" style="overflow: hidden;">
+  <div class="flex-grow-0 flex-shrink-0" style="width: 400px; height: 100%;">
+    <% @chats.each do |chat| %>
+    <% end %>
+  </div>
+  <div class="flex-grow-1 flex-shrink-1 card" style="height: 100%; overflow: hidden;">
+    <div class="card-header">
+      <div class="card-title"><%= @chat.title %></div>
+    </div>
+    <ul class="card-body my-0" style="overflow: auto;">
+      <%= turbo_stream_from "#{dom_id(@chat)}_messages" %>
+      <div id="<%= dom_id(@chat) %>_messages">
+        <%= render @chat.messages %>
+      </div>
+    </ul>
+    <%= render partial: "messages/form", locals: { chat: @chat } %>
+  </div>
+</div>
