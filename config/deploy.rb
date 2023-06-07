@@ -2,7 +2,7 @@
 lock '~> 3.17.3'
 
 set :application, 'ai_chat'
-set :repo_url, 'git@github.com:respect-pal/ai_chat.git'
+set :repo_url, 'git@github.com:respect-pal-jp/ai_chat.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
