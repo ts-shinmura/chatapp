@@ -31,6 +31,12 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+if ENV.fetch('DEBUG_MODE') { nil } == 'true'
+  port ENV.fetch('PORT') { 3000 }
+else
+  bind 'unix://' + File.expand_path('../tmp/sockets/ai-chat.sock', __dir__)
+  pidfile File.expand_path('../tmp/pids/ai-chat.pid', __dir__)
+end
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
