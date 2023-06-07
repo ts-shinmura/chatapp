@@ -5,25 +5,21 @@ class Message < ApplicationRecord
 
   belongs_to :chat, inverse_of: :messages
 
-  after_create_commit :broadcast_created
-  after_update_commit :broadcast_updated
-
-  def broadcast_created
-    broadcast_append_later_to(
-      "#{dom_id(chat)}_messages", partial: "messages/message",
-      locals: { message: self, scroll_to: true }, target: "#{dom_id(chat)}_messages")
-  end
-
-  def broadcast_updated
-    broadcast_append_to("#{dom_id(chat)}_messages", partial: "messages/message",
-      locals: { message: self, scroll_to: true }, target: "#{dom_id(chat)}_messages")
-  end
-
   def for_openai
     { role:, content: }
   end
 
-  def self.for_openai
-    all.map(&:for_openai)
+  def self.for_openai(length = nil)
+    content_length = 0
+    result = all.map(&:for_openai)
+
+    if length.present?
+      result.reverse.take_while do |item|
+        content_length += item[:content]&.length.to_i
+        content_length < length
+      end.reverse
+    else
+      result
+    end
   end
 end

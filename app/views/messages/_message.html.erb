@@ -1,4 +1,4 @@
-<div id="<%= dom_id(message) %>_messages">
+<div id="<%= dom_id(message) %>">
   <% replace = proc { "#{$1}. __#{$2}__ ：" } %>
   <% if message.user? %>
     <div class="text-white bg-primary p-3 rounded m-3">

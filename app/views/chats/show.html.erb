@@ -1,26 +1,28 @@
 <div class="d-flex flex-row flex-grow-1 flex-shrink-1 my-3" style="overflow: hidden;">
-  <div class="flex-grow-0 flex-shrink-0 pe-3" style="width: 400px; height: 100%;">
-    <ul class="list-group">
+  <div class="flex-grow-0 flex-shrink-0 pe-3 d-flex flex-column" style="width: 400px; height: 100%;">
+    <ul class="list-group flex-grow-0 flex-shrink-0">
       <li class="list-group-item">
         <%= link_to '新規作成', new_chat_path %>
       </li>
+    </ul>
+    <%= turbo_stream_from "#{dom_id(@chat.user)}_chats" %>
+    <ul class="list-group flex-grow-1 flex-shrink-1" id="<%= dom_id @chat.user %>_chats" style="overflow-y: auto;">
       <% @chats.each do |chat| %>
-      <li class="list-group-item">
-        <%= link_to chat.title, chat_path(chat) %>
-      </li>
+        <%= render 'chat', chat: chat %>
       <% end %>
     </ul>
   </div>
   <div class="flex-grow-1 flex-shrink-1 card" style="height: 100%; overflow: hidden;">
     <div class="card-header">
-      <div class="card-title"><%= @chat.title %></div>
+      <%= turbo_stream_from "#{dom_id(@chat)}_title" %>
+      <%= render "title", chat: @chat %>
     </div>
-    <ul class="card-body my-0" style="overflow: auto;">
+    <div class="card-body my-0" style="overflow: auto;">
       <%= turbo_stream_from "#{dom_id(@chat)}_messages" %>
       <div id="<%= dom_id(@chat) %>_messages">
         <%= render @chat.messages %>
       </div>
-    </ul>
+    </div>
     <%= render partial: "messages/form", locals: { chat: @chat } %>
   </div>
 </div>

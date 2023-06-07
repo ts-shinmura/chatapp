@@ -9,6 +9,8 @@ class ChatsController < ApplicationController
     redirect_to chat_path(chat), status: :see_other
   end
 
+  alias index new
+
   def show; end
 
   def create
@@ -24,5 +26,4 @@ class ChatsController < ApplicationController
   def set_chat
     @chat = Chat.find(params[:id])
   end
-
 end

@@ -19,14 +19,14 @@ default: &default
 
 development:
   <<: *default
-  database: gptfront_dev
+  database: ai_chat_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: gptfront_test
+  database: ai_chat_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: gptfront_production
-  username: gptfront
+  host: db01.acc.respect.work
+  database: ai_chat
+  username: ai_chat
   password: <%= ENV["GPTFRONT_DATABASE_PASSWORD"] %>

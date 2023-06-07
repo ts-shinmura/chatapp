@@ -18,5 +18,7 @@ module Gptfront
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.chat_gpt = { length: 2500, parameters: { model: 'gpt-3.5-turbo', temperature: 0.7 } }
   end
 end
