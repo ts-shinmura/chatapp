@@ -62,17 +62,18 @@ group :test do
   gem 'webdrivers'
 end
 
-gem "bootstrap", "~> 5.2"
+gem 'bootstrap', '~> 5.2'
 gem 'commonmarker', '~> 0.23.9'
 gem 'devise', '~> 4.9'
 gem 'importmap-rails', '~> 1.1'
+gem 'mini_racer', '~> 0.8.0'
 gem 'ruby-openai', '~> 4.1'
 gem 'sidekiq', '~> 7.1'
 gem 'turbo-rails', '~> 1.4'
 
 group :development do
-  gem "capistrano", "~> 3.17"
-  gem "capistrano-rails", "~> 1.6"
-  gem "capistrano-rbenv", "~> 2.2"
-  gem "capistrano-bundler", "~> 2.1"
+  gem 'capistrano', '~> 3.17'
+  gem 'capistrano-rails', '~> 1.6'
+  gem 'capistrano-rbenv', '~> 2.2'
+  gem 'capistrano-bundler', '~> 2.1'
 end
