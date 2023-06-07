@@ -34,8 +34,8 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 if ENV.fetch('DEBUG_MODE') { nil } == 'true'
   port ENV.fetch('PORT') { 3000 }
 else
-  bind 'unix://' + File.expand_path('../tmp/sockets/ai-chat.sock', __dir__)
-  pidfile File.expand_path('../tmp/pids/ai-chat.pid', __dir__)
+  bind 'unix://' + File.expand_path('../tmp/sockets/ai_chat.sock', __dir__)
+  pidfile File.expand_path('../tmp/pids/ai_chat.pid', __dir__)
 end
 
 # Use the `preload_app!` method when specifying a `workers` number.
