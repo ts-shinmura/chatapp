@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -53,7 +53,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -83,11 +83,39 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.saml = OneLogin::RubySaml::Settings.new.tap do |settings|
+    settings.assertion_consumer_service_url = 'https://ai-chat.respect.work/acs'
+    settings.assertion_consumer_service_binding = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
+    settings.sp_entity_id = 'https://ai-chat.respect.work/'
+    settings.idp_entity_id = 'http://vpn-gw.respect.work/adfs/services/trust'
+    settings.idp_sso_service_url = 'https://vpn-gw.respect.work/adfs/ls/'
+    settings.idp_sso_service_binding = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
+    settings.name_identifier_format = 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified'
+    settings.idp_cert = <<-IDP_CERT
+      -----BEGIN CERTIFICATE-----
+      MIIC4jCCAcqgAwIBAgIQHsinPPgEh6tKZAonqimc/jANBgkqhkiG9w0BAQsFADAtMSswKQYDVQQDEy
+      JBREZTIFNpZ25pbmcgLSB2cG4tZ3cucmVzcGVjdC53b3JrMB4XDTIyMTAyMzAxMjI0MVoXDTIzMTAy
+      MzAxMjI0MVowLTErMCkGA1UEAxMiQURGUyBTaWduaW5nIC0gdnBuLWd3LnJlc3BlY3Qud29yazCCAS
+      IwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKtAXQ1KrMRGk33seqkqqq6C0UyCsi3dxtrMVkVP
+      nL5dgv+myiD3S3SOOC7CkPq/qJtX5izBdw8iwwjj/usVW/WTFill1bx49cbKhEPeWP660/NROCrFfw
+      lYRJnL3A5lis4ErroBrs/jSKOyH8qzkgt567Gi0G9I/nGxu+VjRAzYXO8vRMF/P3uOb2g3/YZFlHaz
+      HWdWypgq38q5Th4QTMs2U7GGRb0297uQs7WDe2KPe+R0nWwPIZTg6OScvtCZJVc+4OO0KWvGFcV7fH
+      6DXsnh8QdtekuGZ5UiSw4d+aekfM8eCeumxW7whLAZw+0AjZhIRFlbOB8v9wiOaonUWWUCAwEAATAN
+      BgkqhkiG9w0BAQsFAAOCAQEAkXdkkEslHBTkRcEWAWDD3ihUA/51vne+55PKmasRTcixE8vbkUktDs
+      sgpjTp9IZ6N89Rt9ACbkD6vLa4TW2HDbCArC07yFpuJzNHXp1EJWn0a3LI0IVQDFX8xpddp/V1TxNv
+      WDr4CQFC4bjlDAxCZ1FbOWPY87TZLgFtIQpju5kAg0FIOjAMVi6L3q1JqxGqktR+Vj3CUa7i8+wsKb
+      RGZlDe/5qR2kiicPy61K7fLoudLPQAZd/OkAS6sZWZwUyyW+82oPK1u5VOMiHaVGK7qGIufHGaJ6kn
+      T+NztHFL2KtHqG7U/xunfGO1lxoaGro7fk3rwpE6xMtmagBr43yLHA==
+      -----END CERTIFICATE-----
+    IDP_CERT
+  end
+
 end

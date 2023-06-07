@@ -64,7 +64,6 @@ end
 
 gem 'bootstrap', '~> 5.2'
 gem 'commonmarker', '~> 0.23.9'
-gem 'devise', '~> 4.9'
 gem 'importmap-rails', '~> 1.1'
 gem 'mini_racer', '~> 0.8.0'
 gem 'ruby-openai', '~> 4.1'
@@ -77,3 +76,5 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.2'
   gem 'capistrano-bundler', '~> 2.1'
 end
+
+gem "ruby-saml", "~> 1.15"
