@@ -14,7 +14,7 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password:
+  password: Tsukasa3300@
   socket: /var/lib/mysql/mysql.sock
 
 development:
@@ -53,4 +53,4 @@ production:
   host: db01.acc.respect.work
   database: ai_chat
   username: ai_chat
-  password: <%= Rails.application.credentials.dig(Rails.env.to_sym, :database_password) %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
