@@ -22,7 +22,3 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-# chatapp
-
-# chatapp
-# chatapp
